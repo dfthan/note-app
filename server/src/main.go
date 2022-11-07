@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"server/server/controllers"
+	"os"
+	"server/src/controllers"
 )
 
 func indexPage(res http.ResponseWriter, req *http.Request) {
@@ -16,10 +17,14 @@ func main() {
 	http.HandleFunc("/hi", indexPage)
 	// http.Handle("/", http.FileServer(http.Dir("./static"))) serve static files
 	http.HandleFunc("/", controllers.GetTasks)
+	http.HandleFunc("/ping", controllers.Ping)
 
 
-	port := ":3001"
-	fmt.Println("Server started on port", port)
-	log.Fatal(http.ListenAndServe(port, nil))
+	PORT := os.Getenv("PORT")
+	if PORT == "" {
+		PORT = "3001"
+	}
+	fmt.Println("Server started on port", PORT)
+	log.Fatal(http.ListenAndServe(":" + PORT, nil))
 }
 

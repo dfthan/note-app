@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+    go-server:
+        image: go-server-dev
+        build:
+            context: ./server/
+            dockerfile: dev.Dockerfile
+        volumes:
+            - ./server/:/usr/src/app
+        ports:
+            - "3001:3001"
+
+    svelte-client:
+        image: svelte-client-dev
+        build:
+            context: ./client/
+            dockerfile: dev.Dockerfile
+        volumes:
+            - ./client/:/usr/src/app
+        ports:
+            - "5173:5173"
