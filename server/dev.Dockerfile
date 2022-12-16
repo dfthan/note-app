@@ -2,9 +2,12 @@ FROM golang:1.19.3-alpine3.16
 
 WORKDIR /usr/src/app
 
-COPY go.mod .
-COPY . .
+RUN go install github.com/cosmtrek/air@latest
 
-CMD cd src && go run .
+COPY . .
+RUN go mod download
+
+CMD air -c .air.toml
+#CMD cd src && go run .
 
 

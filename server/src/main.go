@@ -16,15 +16,13 @@ func indexPage(res http.ResponseWriter, req *http.Request) {
 func main() {
 	http.HandleFunc("/hi", indexPage)
 	// http.Handle("/", http.FileServer(http.Dir("./static"))) serve static files
-	http.HandleFunc("/", controllers.GetTasks)
-	http.HandleFunc("/ping", controllers.Ping)
-
+	http.HandleFunc("/api/tasks", controllers.GetTasks)
+	http.HandleFunc("/api/ping", controllers.Ping)
 
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
 		PORT = "3001"
 	}
 	fmt.Println("Server started on port", PORT)
-	log.Fatal(http.ListenAndServe(":" + PORT, nil))
+	log.Fatal(http.ListenAndServe(":"+PORT, nil))
 }
-

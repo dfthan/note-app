@@ -4,7 +4,8 @@
 
 @layer components {
 	.task-wrapper {
-		@apply bg-gray-400 p-4 rounded shadow-md;
+		@apply bg-sky-800/25 p-4 rounded-lg shadow-md;
 		min-height: 50vh;
+		max-width: 400px;
 	}
 }
