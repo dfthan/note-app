@@ -1,6 +1,21 @@
 version: "3"
 
 services:
+    db:
+        image: postgres
+        restart: always
+        ports:
+            - 5432:5432
+        volumes:
+            - ./server/data:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=admin
+            - POSTGRES_DB=admin
+            - DATABASE_HOST=admin
+
+        
+
     go-server:
         image: go-server-dev
         build:
@@ -9,7 +24,9 @@ services:
         volumes:
             - ./server/:/usr/src/app
         ports:
-            - "3001:3001"
+            - 3001:3001
+        depends_on:
+            - db
 
     svelte-client:
         image: svelte-client-dev
@@ -19,4 +36,6 @@ services:
         volumes:
             - ./client/:/usr/src/app
         ports:
-            - "5173:5173"
+            - 5173:5173
+        depends_on:
+            - go-server

@@ -7,7 +7,7 @@ RUN go install github.com/cosmtrek/air@latest
 COPY . .
 RUN go mod download
 
+# use air in dev mode, build for prod
 CMD air -c .air.toml
-#CMD cd src && go run .
 
 
